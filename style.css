@@ -221,13 +221,82 @@ p {
     transition: var(--transition);
 }
 
-.nav-links a:hover,
-.nav-links a.active {
+/* Language Selector */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.lang-selector {
+    position: relative;
+}
+
+.lang-btn {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.lang-btn:hover {
+    border-color: var(--accent);
+}
+
+.lang-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 0.5rem;
+    background: var(--nav-bg);
+    backdrop-filter: var(--glass);
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 0.5rem;
+    display: none;
+    flex-direction: column;
+    min-width: 120px;
+    z-index: 1000;
+}
+
+.lang-dropdown.active {
+    display: flex;
+}
+
+.lang-dropdown button {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    padding: 0.5rem 1rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.lang-dropdown button:hover {
+    background: var(--card-bg);
     color: var(--text-primary);
 }
 
-.nav-cta {
-    display: block;
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .nav-links {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .lang-dropdown {
+    right: auto;
+    left: 0;
 }
 
 /* Buttons */
@@ -593,9 +662,24 @@ p {
     font-weight: 700;
 }
 
+.algeria-notice {
+    background: rgba(var(--accent-rgb), 0.1);
+    border: 1px solid rgba(var(--accent-rgb), 0.3);
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+}
+
+.algeria-notice span {
+    color: var(--accent);
+    font-weight: 700;
+}
+
 .card.featured {
     border-color: var(--accent);
-    background: rgba(249, 115, 22, 0.05);
+    background: rgba(var(--accent-rgb), 0.05);
     transform: scale(1.05);
 }
 

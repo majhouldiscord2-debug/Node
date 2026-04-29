@@ -6,6 +6,72 @@ document.addEventListener('DOMContentLoaded', () => {
         cursorGlow.style.top = e.clientY + 'px';
     });
 
+    // Language translations
+    const translations = {
+        en: {
+            nav_home: "Home",
+            nav_packages: "Packages",
+            nav_pricing: "Pricing",
+            nav_contact: "Contact",
+            nav_cta: "Get Started"
+        },
+        fr: {
+            nav_home: "Accueil",
+            nav_packages: "Forfaits",
+            nav_pricing: "Tarifs",
+            nav_contact: "Contact",
+            nav_cta: "Commencer"
+        },
+        ar: {
+            nav_home: "الرئيسية",
+            nav_packages: "الباقات",
+            nav_pricing: "الأسعار",
+            nav_contact: "اتصل بنا",
+            nav_cta: "ابدأ الآن"
+        }
+    };
+
+    const langBtn = document.getElementById('langBtn');
+    const langDropdown = document.querySelector('.lang-dropdown');
+
+    if (langBtn) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            langDropdown.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.lang-dropdown button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                setLanguage(lang);
+                langDropdown.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', () => {
+            langDropdown.classList.remove('active');
+        });
+    }
+
+    function setLanguage(lang) {
+        langBtn.textContent = lang.toUpperCase();
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+
+        localStorage.setItem('preferredLang', lang);
+    }
+
+    // Load preferred language
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    setLanguage(savedLang);
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
