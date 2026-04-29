@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Page Loader
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+            loader.classList.add('loader-hidden');
+        }, 500);
+    });
+
     // Custom cursor glow
     const cursorGlow = document.querySelector('.cursor-glow');
     document.addEventListener('mousemove', (e) => {
