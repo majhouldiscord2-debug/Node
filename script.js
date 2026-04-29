@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Custom cursor glow
+    const cursorGlow = document.querySelector('.cursor-glow');
+    document.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = e.clientX + 'px';
+        cursorGlow.style.top = e.clientY + 'px';
+    });
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -32,14 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const rotateX = (y - centerY) / 10;
-            const rotateY = (centerX - x) / 10;
+            const rotateX = (y - centerY) / 15;
+            const rotateY = (centerX - x) / 15;
             
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+            
+            // Dynamic glow based on mouse position
+            const glowX = (x / rect.width) * 100;
+            const glowY = (y / rect.height) * 100;
+            card.style.background = `radial-gradient(circle at ${glowX}% ${glowY}%, rgba(249, 115, 22, 0.08) 0%, var(--card-bg) 60%)`;
         });
         
         card.addEventListener('mouseleave', () => {
             card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)`;
+            card.style.background = `var(--card-bg)`;
         });
     });
 
