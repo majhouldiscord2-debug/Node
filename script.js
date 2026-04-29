@@ -72,6 +72,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedLang = localStorage.getItem('preferredLang') || 'en';
     setLanguage(savedLang);
 
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            faqItems.forEach(other => other.classList.remove('active'));
+            if (!isActive) item.classList.add('active');
+        });
+    });
+
+    // Stats Counter Animation
+    const stats = document.querySelectorAll('.stat-number');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                const count = () => {
+                    const current = parseInt(entry.target.innerText);
+                    const increment = target / 50;
+                    if (current < target) {
+                        entry.target.innerText = Math.ceil(current + increment);
+                        setTimeout(count, 30);
+                    } else {
+                        entry.target.innerText = target;
+                    }
+                };
+                count();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => statsObserver.observe(stat));
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
